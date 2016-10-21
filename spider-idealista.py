@@ -13,7 +13,7 @@ class MySpider(scrapy.Spider):
     size=""
     orientation=""
     rooms=""
-    misc_data_flat=response.xpath("//*[@id='details']/div[4]/ul/*/text()").extract()
+    misc_data_flat=response.xpath("//*[@id='details']/div[3]/ul/*/text()").extract()
     for i in misc_data_flat:
       if u"m²" in i: size=i
       if u"Orientación" in i: orientation=i
@@ -22,7 +22,7 @@ class MySpider(scrapy.Spider):
     floor=""
     int_ext=""
     lift=""
-    misc_data_bldg=response.xpath("//*[@id='details']/div[5]/ul/*/text()").extract()
+    misc_data_bldg=response.xpath("//*[@id='details']/div[4]/ul/*/text()").extract()
     for i in misc_data_bldg:
       if "Planta" in i: floor=i
       if "interior" in i: int_ext="interior"
