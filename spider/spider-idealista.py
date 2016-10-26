@@ -33,10 +33,12 @@ class MySpider(scrapy.Spider):
     geodata=geocoder.google(addr_approx)
     gps=" ".join([str(i) for i in geodata.latlng])
     cp=geodata.postal
+    # TO-DO: Calculate distance to public transport (osm?)
     publicdistance="?"
     
     price=response.xpath("//*[@class='price']/text()")[0].extract().split()[0]
     contact=response.xpath("//*[@class='contact-phones']/*/p/text()")[0].extract()
+    # TO-DO: fix photo fetching
     #pics="|".join(response.xpath("//img/@src").extract())
     deposit=""
     try: 
@@ -55,7 +57,7 @@ class MySpider(scrapy.Spider):
             'addr_approx': addr_approx,
             'gps': gps,
             'cp': cp,
-            'publicdistance': publicdistance,
+            #'publicdistance': publicdistance,
             'price': price,
             'contact': contact,
             #'pics': pics,
@@ -69,6 +71,8 @@ class MySpider(scrapy.Spider):
     for flat in flats:
       flaturl=response.urljoin(flat)
       yield scrapy.Request(flaturl,callback=self.parseflat)
+      #yield {"url": flaturl}
+
     
     nexturl=response.xpath('//*[@class="next"]/a/@href').extract()
     if nexturl: nexturl=response.urljoin(nexturl[0])
