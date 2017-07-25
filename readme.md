@@ -21,3 +21,4 @@ Tool to automate house finding in Spain based on the demo in my [EE24 talk](http
 ### Dependencies
 
 * Scrapy
+* Geocoder
